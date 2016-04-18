@@ -66,7 +66,7 @@ its meant to point at a common storage like mdbox.
     perl -Ilib bin/mb2repo.pl --from=t/test-mails/maildir --to=t/test-mails/repo
 
     # Show the `From` and `Subject` of messages in the repo in directory `--from`
-    perl -Ilib bin/readrepo.pl --from=/home/nickl/Maildir3
+    perl -Ilib bin/readrepo.pl --from=t/test-mails/repo
 
     # Read a message from repo with an `--id` (the sha1 of its Message-ID, viewable from bin/readrepo.pl list)
     perl -Ilib bin/readmessage.pl --from=t/test-mails/repo --id=e61b63abe0bf481dbc3de1ac6bb1399ddfea6be5
