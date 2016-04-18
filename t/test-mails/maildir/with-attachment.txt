@@ -1,0 +1,129 @@
+Delivered-To: nlogan@gmail.com
+Received: by 10.107.162.136 with SMTP id l130csp1350241ioe;
+        Mon, 11 Apr 2016 08:17:07 -0700 (PDT)
+X-Received: by 10.55.4.149 with SMTP id 143mr8347333qke.92.1460387827459;
+        Mon, 11 Apr 2016 08:17:07 -0700 (PDT)
+Return-Path: <rjbs@icgroup.com>
+Received: from lab.pobox.com (lab.pobox.com. [208.72.237.66])
+        by mx.google.com with ESMTPS id y130si20627210qka.87.2016.04.11.08.17.07
+        for <nlogan@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 11 Apr 2016 08:17:07 -0700 (PDT)
+Received-SPF: pass (google.com: domain of rjbs@icgroup.com designates 208.72.237.66 as permitted sender) client-ip=208.72.237.66;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of rjbs@icgroup.com designates 208.72.237.66 as permitted sender) smtp.mailfrom=rjbs@icgroup.com
+Received: by lab.pobox.com (Postfix, from userid 2605)
+    id DF3F315B4D; Mon, 11 Apr 2016 11:17:06 -0400 (EDT)
+Date: Mon, 11 Apr 2016 11:17:06 -0400
+From: Ricardo Signes <rjbs@icgroup.com>
+To: Nick Logan <nlogan@gmail.com>
+Subject: [rjbs@icgroup.com: Re: [ICG-BIZ] A wild Perl developer appears
+ [Resume/CV]]
+Message-ID: <20160411151706.GX50043@lab.int.icgroup.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="envbJBWh7q8WU6mo"
+Content-Disposition: inline
+X-Message-Flag: Warning: Your computer is current broadcasting an IP address.
+X-Planet: Planet of the Apes
+User-Agent: Mutt/1.5.21 (2010-09-15)
+
+
+--envbJBWh7q8WU6mo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Attached is my original message.
+
+-- 
+Ricardo Signes (rjbs)
+Research & Development, IC Group
+
+--envbJBWh7q8WU6mo
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Date: Fri, 1 Apr 2016 15:15:39 -0400
+From: Ricardo Signes <rjbs@icgroup.com>
+To: Nick Logan <nlogan@gmail.com>
+Subject: Re: [ICG-BIZ] A wild Perl developer appears [Resume/CV]
+Message-ID: <20160401191539.GR63594@lab.int.icgroup.com>
+References: <56FEB71D.7090001@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="WfZ7S8PLGjBY9Voh"
+Content-Disposition: inline
+In-Reply-To: <56FEB71D.7090001@gmail.com>
+X-Message-Flag: Warning: Your computer is current broadcasting an IP address.
+X-Planet: Planet of the Apes
+User-Agent: Mutt/1.5.21 (2010-09-15)
+
+
+--WfZ7S8PLGjBY9Voh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+* Nick Logan <nlogan@gmail.com> [2016-04-01T13:59:57]
+> Hello! I'm Nick Logan, and I'm a Perl developer.
+
+Hi, Nick!  Thanks for your application!
+
+I've attached a programming problem that we ask you complete.  I think its
+contents should be pretty comprehensive, but contact us if you need to.  I'm
+*almost* tempted to tell you to try it in Perl 6, but I'm going to resist that
+temptation, because I'm not qualified to judge good Perl 6... yet? :)
+
+When you're done, please send us your work (as a tarball, zip file, or link to
+a repository) to <rjbs@icgroup.com>.  Take your time, and let us know how it
+goes.
+
+-- 
+Ricardo Signes (rjbs)
+Research & Development, IC Group
+
+--WfZ7S8PLGjBY9Voh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename="problem.mkdn"
+
+# Your Programming Problem
+
+You're going to write a program to break down and store the contents of a bunch
+of email messages.
+
+Please note that while this is a relatively simple matter of programming, we
+are particularly interested in seeing the design of your solution. We will
+evaluate your code not only based on correctness but also based on design and
+organization. Pretend this is code being written to go into production.  If you
+find parts of the spec unclear, implement what you think makes sense and make a
+note of it.  Nothing in here is intended as a "trick question."
+
+Your program will take the messages and write their contents to the filesystem,
+with the following constraints:
+
+* input will be given as a Maildir
+* every message gets its own directory, with a unique name that can be computed
+  from the message itself
+* text and html parts, except for attachments, get written as UTF-8 to
+  `body.txt` and `body.htm` (if there's more than one of either, only save one
+  this way)
+* all other attachments are written to files with unique names computable from
+  the message
+* a file called `manifest` is written in some easy-to-load format that maps
+  from the structure of the source message to the files written out
+* all created files are mode read/write only for the current user
+
+Implement the program in one or more Perl 5 modules.  Target whatever version
+of perl you like, using whatever libraries you like, as long as we can install
+them from the CPAN.  Include at least a simple set of tests using the standard
+test libraries.  Also include an executable program that takes the paths to its
+input Maildir as arguments and responds to --help and any other relevant
+options.
+
+If you choose to implement only a subset of this specification, let us know how
+long you spent on it, and how you decided what to leave out.
+
+Also include a program that, pointed at one of these generated directories, can
+print the message's from/to/subject/date, the structure of the original
+message, and the path to the filename in which each part can be found.
+
+--WfZ7S8PLGjBY9Voh--
+
+--envbJBWh7q8WU6mo--

@@ -1,0 +1,106 @@
+=encoding utf8
+
+=head1 NAME
+
+Emailish - mdbox style mail storage mock up that maps every part of a whole message to a common storage point
+
+=head1 SYNOPSIS
+
+    use Emailish::Repo;
+    use Emailish::Message;
+    use Email::Abstract;
+
+    my $from_abstract = Email::Abstract->new( ... );
+    my $message = Emailish::Message->new($from_abstract->as_string);
+
+    my $to_path = ...
+    my $repo = Emailish::Repo->new(prefix => $to_path);
+    $repo->commit($message);
+
+=head1 DESCRIPTION
+
+Split a message into individual parts, saving each one as a separate hash of its contents. Later you can
+fetch the message by its hash, which attempts to reconstruct the message.
+
+=head1 FOLDER LAYOUT
+
+=over 4
+
+=item * I<$repo_root/>
+
+A directory containing subdirectories that contain a manifest for reconstruction
+
+=item * I<$repo_root/$id>
+
+The directory containing the repo of the message with sha1_hex($Message-ID)
+
+=item * I<$repo_root/$id/content/>
+
+Directory containing content where the path names are sha1 digests of the content
+
+=item * I<$repo_root/$id/.manifest.yml>
+
+A manifest that is used to reconstruct the I<content> parts into the original message body
+
+=item * I<$repo_root/$id/.head.yml>
+
+Similar to manifest, but used to recreate the original header. Its separate from .manifest.yml
+so configurations that use a large manifest can still get the head quickly
+
+=item * I<$repo_root/$id/body.htm>
+
+If the message has an html body it will be saved here
+
+=item * I<$repo_root/$id/body.txt>
+
+If the message has a test body it will be saved here
+
+=back
+
+=head1 SCRIPT EXAMPLES
+
+    # Iterate messages in `--from` and store them in a (possibly non-existing) repo `--to`
+    perl -Ilib bin/mb2repo.pl --from=t/test-mails/maildir --to=t/test-mails/repo
+
+    # Show the `From` and `Subject` of messages in the repo in directory `--from`
+    perl -Ilib bin/readrepo.pl --from=/home/nickl/Maildir3
+
+    # Read a message from repo with an `--id` (the sha1 of its Message-ID, viewable from bin/readrepo.pl list)
+    perl -Ilib bin/readmessage.pl --from=t/test-mails/repo --id=e61b63abe0bf481dbc3de1ac6bb1399ddfea6be5
+
+=head1 TODO
+
+=over 4
+
+=item * Proper message reconstruction
+
+Message reconstruction is more of a proof of concept, as it doesn't actually work. It can reconstruct a message but the
+structure is lost. This can be fixed by storing each part's preamble and epilogue in the .manifest. But even this solution
+is naive due to encoding.
+
+=item * Proper encoding
+
+Each part needs additional meta information saved that stores its original encoding. C<MIME::Entity> can give a file handle
+to a message body; if it could give a handle for each message part's body then this will be much easier.
+
+=back
+
+=head1 THOUGHTS
+
+If I had a high level abstraction over multiple file handles that allow it to be treated like a single file handle
+then I would have created functionality for C<Email::MIME::Kit> for I<generating> templates. It appears to be trivial
+with just a Maildir (just use its filename!), but for anything that really needs a manifest (like mdbox) I think
+it requires some additional interfaces.
+
+My main problem throughout this exercise was trying to handle message parts. While access to the parts is easy
+with the available C<Email::> tooling, recreating the messages quickly becomes non-trivial (but totally do-able)
+
+=head1 AUTHOR
+
+Nick Logan <F<nlogan@gmail.com>>
+
+=head1 LICENSE AND COPYRIGHT
+
+This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
+
+=cut
