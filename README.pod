@@ -57,6 +57,9 @@ If the message has a test body it will be saved here
 
 =back
 
+B<Note> I<content/> currently resides in each message's repo folder for the sake of this exercise, but
+its meant to point at a common storage like mdbox.
+
 =head1 SCRIPT EXAMPLES
 
     # Iterate messages in `--from` and store them in a (possibly non-existing) repo `--to`
