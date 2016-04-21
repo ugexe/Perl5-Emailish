@@ -65,7 +65,7 @@ package Emailish::Repo {
         my $text  = $email->_as_body_text; # I cheated and did not index these in the manifest
         my $html  = $email->_as_body_html; # because these parts are also saved in the content store
         $repo_dir->child('body.txt')->spew_utf8($text) if $text && $text ne '';
-        $repo_dir->child('body.htm')->spew_utf8($html) if $html && $text ne '';
+        $repo_dir->child('body.htm')->spew_utf8($html) if $html && $html ne '';
         return $email;
     };
 
